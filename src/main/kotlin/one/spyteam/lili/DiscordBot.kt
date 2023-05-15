@@ -4,10 +4,9 @@ import dev.kord.core.Kord
 import dev.kord.core.behavior.createChatInputCommand
 import dev.kord.core.event.interaction.GuildChatInputCommandInteractionCreateEvent
 import dev.kord.core.on
-import kotlinx.coroutines.*
+import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
 import one.spyteam.lili.actions.Action
-import one.spyteam.lili.actions.helpAction
 
 object DiscordBot {
     val actions = mutableMapOf<String, Action>()
@@ -17,9 +16,6 @@ object DiscordBot {
 
     init {
         log.info { "Initializing" }
-
-        // default actions
-        actions["help"] = helpAction
 
         // event handlers
         kord.on<GuildChatInputCommandInteractionCreateEvent> { handleCommandEvent(this) }

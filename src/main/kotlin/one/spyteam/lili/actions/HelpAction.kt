@@ -27,7 +27,7 @@ private fun getHelpFor(commandName: String): String {
     } ?: throw IllegalArgumentException("No such command: $commandName")
 }
 
-val helpAction = Action(
+val HelpAction = Action(
     "Get additional information about commands",
     "Gives an overview of all commands, or detailed information about a specific command",
     {
