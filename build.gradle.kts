@@ -1,8 +1,7 @@
-import nu.studer.gradle.jooq.JooqEdition
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.20"
-    id("nu.studer.jooq") version "8.2"
+    kotlin("jvm") version "1.8.21"
     application
 }
 
@@ -14,46 +13,14 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.kord:kord-core:0.9.0")
-    implementation("org.slf4j:slf4j-simple:2.0.7")
-    implementation("org.xerial:sqlite-jdbc:3.41.2.1")
-
-    jooqGenerator("org.xerial:sqlite-jdbc:3.41.2.1")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("org.json:json:20230618")
 }
 
-kotlin {
-    jvmToolchain(17)
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "1.8"
 }
 
 application {
-    mainClass.set("one.spyteam.lili.MainKt")
-}
-
-
-jooq {
-    version.set("3.18.2")
-    edition.set(JooqEdition.OSS)
-
-    configurations {
-        create("main") {
-            jooqConfiguration.apply {
-                logging = org.jooq.meta.jaxb.Logging.WARN
-                jdbc.apply {
-                    driver = "org.sqlite.JDBC"
-                    url = "jdbc:sqlite:lili.db"
-                }
-                generator.apply {
-                    name = "org.jooq.codegen.DefaultGenerator"
-                    database.apply {
-                        name = "org.jooq.meta.sqlite.SQLiteDatabase"
-                    }
-                    target.apply {
-                        packageName = "${project.group}.${project.name}.jooq"
-                        directory = "src/generated/jooq"
-                    }
-                    strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
-                }
-            }
-        }
-    }
+    mainClass.set("MainKt")
 }
