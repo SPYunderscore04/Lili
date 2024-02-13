@@ -1,4 +1,8 @@
+# Gradle
+# project-specific cache directory
 .gradle
-.idea
+# build output directory
 build
-lili.db
+
+# IntelliJ IDEA
+.idea
