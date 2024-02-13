@@ -6,4 +6,4 @@ import platform.posix.getenv
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun getEnvVariable(name: String) =
-    getenv(name)?.toKString() ?: envVariableMissing(name)
+    getenv(name)?.toKString() ?: throw EnvVariableMissing(name)
