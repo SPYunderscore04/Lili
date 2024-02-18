@@ -7,10 +7,13 @@ import io.ktor.websocket.*
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
+import model.discord.gateway.Event
+import util.lazyLogger
 
-class DiscordGateway(
-    url: String
-) {
+private val log by lazyLogger(DiscordGateway::class)
+
+class DiscordGateway(url: String) {
 
     private val client = HttpClient(CIO) {
         install(WebSockets)
@@ -19,38 +22,38 @@ class DiscordGateway(
     init {
         runBlocking {
             client.webSocket(url) {
-                val userInputRoutine = launch { inputMessages() }
-                val messageOutputRoutine = launch { outputMessages() }
+                val userInputRoutine = launch { __write(this@webSocket) }
+                val messageOutputRoutine = launch { __read(this@webSocket) }
 
                 userInputRoutine.join() // Wait for completion; either "exit" or error
                 messageOutputRoutine.cancelAndJoin()
+                // ^ TODO
             }
+
+            client.close()
+            log.info { "Client closed" }
         }
-        client.close()
-        println("Connection closed. Goodbye!")
     }
 
-    private suspend fun DefaultClientWebSocketSession.inputMessages() {
+    private suspend fun __write(session: DefaultClientWebSocketSession) {
         while (true) {
-            val message = readlnOrNull() ?: ""
-            if (message.equals("exit", true)) return
-            try {
-                send(message)
-            } catch (e: Exception) {
-                println("Error while sending: $e")
-            }
+            // TODO
         }
     }
 
-    private suspend fun DefaultClientWebSocketSession.outputMessages() {
+    private suspend fun __read(session: DefaultClientWebSocketSession) {
         try {
-            for (message in incoming) {
-                message as? Frame.Text
-                    ?: continue
-                println(message.readText())
+            for (message in session.incoming) {
+                if (message is Frame.Text) {
+                    val text = message.readText()
+                    log.debug { "Received: $text" }
+
+                    val event = Json.decodeFromString<Event>(text)
+                    log.info { "Event: $event" }
+                }
             }
         } catch (e: Exception) {
-            println("Error while receiving: $e")
+            log.error(e) { "Error receiving" }
         }
     }
 }

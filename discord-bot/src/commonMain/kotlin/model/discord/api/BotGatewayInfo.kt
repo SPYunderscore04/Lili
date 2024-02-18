@@ -14,18 +14,3 @@ data class BotGatewayInfo(
     @SerialName("shards")
     val shards: Int
 )
-
-@Serializable
-data class SessionStartLimit(
-    @SerialName("max_concurrency")
-    val maxConcurrency: Int,
-
-    @SerialName("remaining")
-    val remaining: Int,
-
-    @SerialName("reset_after")
-    val resetAfter: Int,
-
-    @SerialName("total")
-    val total: Int
-)
