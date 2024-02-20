@@ -9,7 +9,6 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.http.HttpHeaders.Authorization
 import io.ktor.serialization.kotlinx.json.*
-import model.Environment
 import model.discord.api.BotGatewayInfo
 import util.lazyLogger
 
