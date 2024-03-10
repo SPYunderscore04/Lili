@@ -1,11 +1,13 @@
 import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import service.DiscordApi
 import service.DiscordGateway
+import kotlin.time.Duration.Companion.seconds
 
 expect fun configurePlatform()
 
-private val log = KotlinLogging.logger { }
+private val log by lazy { KotlinLogging.logger { } }
 
 fun main() {
     configurePlatform()
@@ -19,4 +21,5 @@ fun main() {
 
     val gateway = DiscordGateway(result.url)
     log.info { "Gateway created: $gateway" }
+    runBlocking { delay(10.seconds) }
 }

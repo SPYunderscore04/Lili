@@ -12,8 +12,6 @@ import io.ktor.serialization.kotlinx.json.*
 import model.discord.api.BotGatewayInfo
 import util.lazyLogger
 
-typealias Closure<T> = T.() -> Unit
-
 private val log by lazyLogger(DiscordGateway::class)
 
 object DiscordApi {
@@ -29,6 +27,8 @@ object DiscordApi {
 
     private val httpClient = buildHttpClient()
 }
+
+private typealias Closure<T> = T.() -> Unit
 
 private fun buildHttpClient(): HttpClient {
     val loggerObject = object : Logger {
