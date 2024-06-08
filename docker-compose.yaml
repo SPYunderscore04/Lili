@@ -1,0 +1,8 @@
+services:
+  discord-bot:
+    build:
+      context: discord-bot
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+
+  # TODO database
