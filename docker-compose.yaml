@@ -5,8 +5,11 @@ services:
     environment:
       - LOG_LEVEL=DEBUG
       - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - HYPIXEL_API_KEY=${HYPIXEL_API_KEY}
       - DB_URL=postgres://postgres:${POSTGRES_PASSWORD}@database:5432/postgres
       - DEBUG_SCOPE=${DEBUG_SCOPE}
+    depends_on:
+      - database
 
   database:
     image: postgres:16

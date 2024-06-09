@@ -1,2 +1,3 @@
 discord-py-interactions
 tortoise-orm[asyncpg]
+httpx

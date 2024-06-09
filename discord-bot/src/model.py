@@ -2,7 +2,7 @@ from tortoise.fields import *
 from tortoise.models import Model
 
 
-class User(Model):
+class Player(Model):
     minecraft_uuid = UUIDField(unique=True, db_index=True)
     discord_id = DecimalField(unique=True, db_index=True, max_digits=20, decimal_places=0)
     catacombs_level = FloatField()

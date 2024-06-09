@@ -22,7 +22,7 @@ class Commands(Extension):
                   opt_type=OptionType.STRING,
                   required=True)
     async def on_link_called(self, ctx: SlashContext, minecraft_name: str):
-        await link_account(minecraft_name, ctx.author.id)
+        await link_account(minecraft_name, ctx.author)
         await respond_eph(ctx, Responses.Success.LINKED)
 
     @slash_command(name='unlink',
@@ -88,7 +88,7 @@ class Commands(Extension):
         command = ctx.command.name
 
         if isinstance(error, Failure):
-            self._logger.info(f'{command} failed with {error}')
+            self._logger.info(f'/{command} failed with {error}', exc_info=error.__cause__)
             await respond_eph(ctx, error.embed())
 
         else:
