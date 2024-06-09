@@ -6,6 +6,7 @@ services:
       - LOG_LEVEL=DEBUG
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - DB_URL=postgres://postgres:${POSTGRES_PASSWORD}@database:5432/postgres
+      - DEBUG_SCOPE=${DEBUG_SCOPE}
 
   database:
     image: postgres:16

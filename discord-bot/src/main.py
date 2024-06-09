@@ -5,8 +5,6 @@ from tortoise import Tortoise
 
 from util import get_env_var, configure_logging
 
-discord_client = AutoShardedClient()
-
 
 async def main():
     log_level = get_env_var('LOG_LEVEL', 'WARNING')
@@ -15,11 +13,15 @@ async def main():
     logging.info('Starting')
 
     db_url = get_env_var('DB_URL')
-    await Tortoise.init(db_url=db_url, modules={'models': ['user']})
+    await Tortoise.init(db_url=db_url, modules={'models': ['model']})
     await Tortoise.generate_schemas()
 
     discord_token = get_env_var('DISCORD_TOKEN')
-    await discord_client.astart(token=discord_token)
+    debug_scope = get_env_var('DEBUG_SCOPE', None)
+
+    client = AutoShardedClient(debug_scope=debug_scope, send_command_tracebacks=False)
+    client.load_extension('commands')
+    await client.astart(token=discord_token)
 
 
 async def on_shutdown():
