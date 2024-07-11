@@ -1,20 +1,6 @@
-import logging
-import os
-from logging import StreamHandler, Formatter, DEBUG, INFO, WARNING, ERROR, CRITICAL
+from logging import StreamHandler, Formatter, DEBUG, INFO, WARNING, ERROR, CRITICAL, getLevelName, basicConfig
 
 from interactions import Embed, SlashContext
-
-
-def get_env_var(name: str, default: str = None) -> str:
-    value = os.environ.get(name)
-
-    match (value, default):
-        case (None, None):
-            raise RuntimeError(f"Environment variable {name} is not set")
-        case (None, default):
-            return default
-        case (value, _):
-            return value
 
 
 def configure_logging(log_level: int):
@@ -50,8 +36,36 @@ def configure_logging(log_level: int):
 
     # TODO file logger
 
-    logging.basicConfig(level=log_level, handlers=[stdout_handler])
+    basicConfig(level=getLevelName(log_level), handlers=[stdout_handler])
 
 
 async def respond_eph(ctx: SlashContext, embed: Embed):
     await ctx.respond(embed=embed, ephemeral=True)
+
+
+def cata_xp_to_next_level():
+    xp_required = [
+        50, 75, 110, 160, 230, 330, 470, 670, 950, 1340,
+        1890, 2665, 3760, 5260, 7380, 10300, 14400, 20000, 27600, 38000,
+        52500, 71500, 97000, 132000, 180000, 243000, 328000, 445000, 600000, 800000,
+        1065000, 1410000, 1900000, 2500000, 3300000, 4300000, 5600000, 7200000, 9200000, 12000000,
+        15000000, 19000000, 24000000, 30000000, 38000000, 48000000, 60000000, 75000000, 93000000, 116250000
+    ]
+
+    for xp in xp_required:
+        yield xp
+
+    while True:
+        yield 200000000
+
+
+def calculate_catacombs_level(experience: float) -> float:
+    xp_iterator = cata_xp_to_next_level()
+
+    level = 0
+    for next_lvl_xp in xp_iterator:
+        if experience < next_lvl_xp:
+            return level + experience / next_lvl_xp
+
+        level += 1
+        experience -= next_lvl_xp

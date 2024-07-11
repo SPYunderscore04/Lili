@@ -26,18 +26,7 @@ class Responses:
         LINKED_ROLE_UNSET = success_embed(
             'Linked role removed',
             'Users with a linked Minecraft account no longer receive a role.'
-        )
-        LEVEL_ROLE_ADDED = success_embed(
-            'Level role added',
-            'Users with at least this Catacombs level will now receive this role.'
-        )
-        LEVEL_ROLE_REMOVED = success_embed(
-            'Level role removed',
-            'Users with no longer receive this role.'
-        )
-        LEVEL_ROLES_CLEARED = success_embed(
-            'Level roles cleared',
-            'Users will no longer receive any roles based on their Catacombs level.'
+            'Note that the role will not be taken from users who already have it.'
         )
 
     class Error:

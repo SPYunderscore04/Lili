@@ -1,27 +1,22 @@
 import logging
 from asyncio import new_event_loop, set_event_loop
-from interactions import AutoShardedClient
+
 from tortoise import Tortoise
 
-from util import get_env_var, configure_logging
+from discordclient import DiscordClient
+from environment import Environment
+from util import configure_logging
 
 
 async def main():
-    log_level = get_env_var('LOG_LEVEL', 'WARNING')
-    configure_logging(logging.getLevelName(log_level))
-
+    configure_logging(logging.getLevelName(Environment.LOG_LEVEL))
     logging.info('Starting')
 
-    db_url = get_env_var('DB_URL')
-    await Tortoise.init(db_url=db_url, modules={'models': ['model']})
+    await Tortoise.init(db_url=Environment.DB_URL, modules={'models': ['model']})
     await Tortoise.generate_schemas()
 
-    discord_token = get_env_var('DISCORD_TOKEN')
-    debug_scope = get_env_var('DEBUG_SCOPE', None)
-
-    client = AutoShardedClient(debug_scope=debug_scope, send_command_tracebacks=False)
-    client.load_extension('commands')
-    await client.astart(token=discord_token)
+    DiscordClient.load_extension('commands')
+    await DiscordClient.astart(token=Environment.DISCORD_TOKEN)
 
 
 async def on_shutdown():

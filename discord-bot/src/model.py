@@ -11,9 +11,3 @@ class Player(Model):
 class LinkedRole(Model):
     guild_id = DecimalField(max_digits=20, decimal_places=0, primary_key=True)
     role_id = DecimalField(max_digits=20, decimal_places=0)
-
-
-class LevelRole(Model):
-    guild_id = DecimalField(max_digits=20, decimal_places=0)
-    role_id = DecimalField(max_digits=20, decimal_places=0)
-    level = FloatField()
