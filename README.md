@@ -16,7 +16,7 @@ Feel free to suggest changes or improvements as issues!
  Next Steps
 ------------
 
-* Periodic user updates
 * Permanent Hypixel API key
+* Deploy
 * Refactor into feature-based files & classes
 * Error handling for admin actions and bad server configuration
