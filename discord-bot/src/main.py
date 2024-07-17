@@ -16,6 +16,7 @@ async def main():
     await Tortoise.generate_schemas()
 
     DiscordClient.load_extension('commands')
+    DiscordClient.load_extension('tasks')
     await DiscordClient.astart(token=Environment.DISCORD_TOKEN)
 
 
