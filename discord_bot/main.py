@@ -74,7 +74,7 @@ class App:
 
     async def _initialise_orm(self) -> None:
         db_model_files = [
-            "discord_bot.persistence.player",
+            "discord_bot.persistence.link",
         ]
 
         await Tortoise.init(db_url=self._env.db_url, modules={"models": db_model_files})
@@ -85,7 +85,8 @@ class App:
 
         while retries_left > 0:
             try:
-                await self._member_update_service.run_update_loop()
+                await self._member_update_service.update_most_due_member()
+                await sleep(60)  # TODO base on hypixel api limit
 
             except Exception as e:
                 logging.error(f"Update loop crashed! {retries_left} tries remaining", exc_info=e)

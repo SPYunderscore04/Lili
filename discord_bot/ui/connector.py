@@ -42,7 +42,7 @@ class Connector:
 
     async def _on_force_link(self, ctx: SlashContext, member: Member, minecraft_username: str) -> None:
         await ctx.defer(ephemeral=True)
-        await self._linking_service.link_member(member, minecraft_username)
+        await self._linking_service.link_member_without_checks(member, minecraft_username)
         await ctx.send(embed=Response.Success.LINKED)
 
     async def _on_force_unlink(self, ctx: SlashContext, member: Member) -> None:
