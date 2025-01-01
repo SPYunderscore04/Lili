@@ -1,4 +1,5 @@
 from abc import ABC
+from copy import copy
 
 from interactions import Embed, Role, Member
 
@@ -37,6 +38,7 @@ class MemberUpdateFailed(Failure):
     response = Response.Error.MEMBER_UPDATE_FAILED
 
     def __init__(self, member: Member, nickname: str, roles: list[Role]):
+        self.response = copy(MemberUpdateFailed.response)
         self.response.description = self.response.description.format(
             member=member.mention,
             nickname=nickname,
