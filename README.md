@@ -16,6 +16,5 @@ Next Steps
 ----------
 * [ ] Permanent Hypixel API key
 * [ ] Deploy
-* [ ] Actually bypass checks with force_verify
 * [ ] Configurable verification role
 * [ ] Support for multiple servers; global commands
