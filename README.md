@@ -14,7 +14,6 @@ Features
 
 Next Steps
 ----------
-* [ ] Permanent Hypixel API key
 * [ ] Deploy
 * [ ] Configurable verification role
 * [ ] Support for multiple servers; global commands
