@@ -1,6 +1,7 @@
 FROM python:3.13
 
 RUN pip install poetry==1.8.5
+ENV POETRY_CACHE_DIR="/var/cache/pypoetry"
 
 WORKDIR /app
 
