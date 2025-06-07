@@ -86,7 +86,7 @@ class App:
         while retries_left > 0:
             try:
                 await self._member_update_service.update_most_due_member()
-                await sleep(60)  # TODO base on hypixel api limit
+                await sleep(120)  # TODO base on hypixel api limit
 
             except Exception as e:
                 logging.error(f"Update loop crashed! {retries_left} tries remaining", exc_info=e)
