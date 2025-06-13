@@ -7,17 +7,22 @@ from tortoise.timezone import now
 
 from discord_bot.application.failure import MemberUpdateFailed
 from discord_bot.application.hypixelapiservice import HypixelAPIService
-from discord_bot.application.mojangapiservice import MojangAPIService
+from discord_bot.application.minecraftapiservice import MinecraftAPIService
 from discord_bot.persistence.link import Link
 
 
 class MemberUpdateService:
     _log = getLogger(__name__)
 
-    def __init__(self, mojang_api: MojangAPIService, hypixel_api: HypixelAPIService, discord_client: Client):
+    def __init__(
+        self,
+        minecraft_api: MinecraftAPIService,
+        hypixel_api: HypixelAPIService,
+        discord_client: Client,
+    ):
         self._log.debug("Initialising")
 
-        self._mojang_api = mojang_api
+        self._minecraft_api = minecraft_api
         self._hypixel_api = hypixel_api
         self._discord_client = discord_client
 
@@ -53,7 +58,7 @@ class MemberUpdateService:
         link.last_nickname_update = now()
         await link.save()
 
-        name = await self._mojang_api.get_minecraft_name(link.minecraft_uuid)
+        name = await self._minecraft_api.get_minecraft_name(link.minecraft_uuid)
         level = await self._hypixel_api.get_catacombs_level(link.minecraft_uuid)
 
         nickname = self._format_nickname(name, level)

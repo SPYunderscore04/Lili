@@ -7,7 +7,7 @@ from tortoise import Tortoise
 from discord_bot.application.hypixelapiservice import HypixelAPIService
 from discord_bot.application.linkingservice import LinkingService
 from discord_bot.application.memberupdateservice import MemberUpdateService
-from discord_bot.application.mojangapiservice import MojangAPIService
+from discord_bot.application.minecraftapiservice import MinecraftAPIService
 from discord_bot.ui.connector import Connector
 from discord_bot.util.environment import Environment
 from discord_bot.util.logformatter import LogFormatter
@@ -43,16 +43,16 @@ class App:
         )
 
     def _create_services(self) -> None:
-        self._mojang_api = MojangAPIService()
+        self._minecraft_api = MinecraftAPIService()
         self._hypixel_api = HypixelAPIService(api_key=self._env.hypixel_api_key)
 
         self._member_update_service = MemberUpdateService(
-            mojang_api=self._mojang_api,
+            minecraft_api=self._minecraft_api,
             hypixel_api=self._hypixel_api,
             discord_client=self._discord_client,
         )
         self._linking_service = LinkingService(
-            mojang_api=self._mojang_api,
+            minecraft_api=self._minecraft_api,
             hypixel_api=self._hypixel_api,
             member_update_service=self._member_update_service,
         )

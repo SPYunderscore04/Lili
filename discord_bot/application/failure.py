@@ -26,8 +26,8 @@ class NotLinked(Failure):
     response = Response.Error.NOT_LINKED
 
 
-class MojangAPIRequestFailed(Failure):
-    response = Response.Error.MOJANG_API_REQUEST_FAILED
+class MinecraftAPIRequestFailed(Failure):
+    response = Response.Error.MINECRAFT_API_REQUEST_FAILED
 
 
 class HypixelAPIRequestFailed(Failure):

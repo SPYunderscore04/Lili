@@ -30,8 +30,8 @@ class Response:
             title="Unknown Minecraft username",
             description="Please double-check your Minecraft name.",
         )
-        MOJANG_API_REQUEST_FAILED = error_embed(
-            title="Mojang API request failed",
+        MINECRAFT_API_REQUEST_FAILED = error_embed(
+            title="Minecraft API request failed",
             description="This is not your fault. The API might be down, please try again later.",
         )
         HYPIXEL_API_REQUEST_FAILED = error_embed(
