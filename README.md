@@ -14,6 +14,5 @@ Features
 
 Next Steps
 ----------
-* [ ] Deploy
 * [ ] Configurable verification role
 * [ ] Support for multiple servers; global commands
